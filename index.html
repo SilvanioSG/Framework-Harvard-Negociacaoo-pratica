@@ -1,0 +1,556 @@
+!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Framework Harvard para negociação colaborativa – guia prático para líderes e gestores por Silvanio Gois.">
+    <title>Framework Harvard | Negociação para Líderes e Gestores</title>
+    <!-- Pré-conexão para melhor performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f9fe;
+            color: #1e2a3a;
+            line-height: 1.5;
+        }
+
+        /* roll suave respeitando preferência do sistema */
+        @media (prefers-reduced-motion: no-preference) {
+            html {
+                scroll-behavior: smooth;
+            }
+        }
+
+        :root {
+            --harvard-primary: rgb(39, 98, 141);
+            --harvard-dark: #1e4a6e;
+            --harvard-light: #eef3fc;
+            --gray-soft: #f8fafc;
+            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+            --shadow-hover: 0 20px 28px -12px rgba(39, 98, 141, 0.2), 0 4px 12px rgba(0, 0, 0, 0.05);
+            --transition: all 0.25s ease;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* cabeçalho */
+        .main-header {
+            background: linear-gradient(135deg, var(--harvard-primary) 0%, #144a6b 100%);
+            color: white;
+            border-radius: 0 0 2rem 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding: 1.8rem 0;
+        }
+
+        .title-area h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.25rem;
+        }
+
+        .estudo-badge {
+            font-size: 0.85rem;
+            background-color: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-weight: 500;
+            backdrop-filter: blur(2px);
+        }
+
+        .title-area p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-top: 0.4rem;
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(4px);
+            padding: 0.7rem 1.2rem 0.7rem 0.9rem;
+            border-radius: 60px;
+            transition: var(--transition);
+        }
+
+        .profile-card:hover {
+            background: rgba(255,255,255,0.22);
+            transform: translateY(-2px);
+        }
+
+        .profile-img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .profile-info .name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            line-height: 1.2;
+        }
+
+        .whatsapp-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #25D366;
+            color: #1e2a2e;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 6px;
+            transition: var(--transition);
+            width: fit-content;
+        }
+
+        .whatsapp-link:hover {
+            background: #20b859;
+            transform: scale(1.02);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* botão voltar ao topo */
+        .back-to-top {
+            position: fixed;
+            bottom: 1.8rem;
+            right: 1.8rem;
+            background: var(--harvard-primary);
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 14px rgba(39, 98, 141, 0.4);
+            transition: all 0.2s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            border: none;
+            cursor: pointer;
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+        }
+        .back-to-top:focus-visible {
+            outline-color: white;
+            outline-width: 2px;
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            background: #0f3f5c;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* seções e títulos */
+        section, .flex-2col {
+            margin-bottom: 3.2rem;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0a2b3b;
+            border-left: 6px solid var(--harvard-primary);
+            padding-left: 1rem;
+            margin-bottom: 1.6rem;
+        }
+
+        /* cards dos pilares */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1rem;
+        }
+        .pilar-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.6rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+        .pilar-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-bottom-color: var(--harvard-primary);
+        }
+        .card-icon {
+            background: var(--harvard-light);
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            margin-bottom: 1.2rem;
+            color: var(--harvard-primary);
+            font-size: 1.8rem;
+        }
+        .pilar-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #0f3b55;
+        }
+        .pilar-card p {
+            color: #2c3e44;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        .dica-lider {
+            background: #f0f6fe;
+            padding: 0.6rem 0.8rem;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            border-left: 3px solid var(--harvard-primary);
+            margin-top: 0.6rem;
+        }
+
+        /* coluna flexível */
+        .flex-2col {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .flex-card {
+            flex: 1;
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        .flex-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        .checklist-item i {
+            color: var(--harvard-primary);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+        .exemplo-dialogo {
+            background: #fef9e6;
+            border-left: 5px solid var(--harvard-primary);
+            padding: 1rem 1.3rem;
+            border-radius: 1rem;
+            margin-top: 1rem;
+        }
+        .quote {
+            background: #e9f2f9;
+            padding: 1rem 1.4rem;
+            border-radius: 1rem;
+            margin: 1.2rem 0;
+            font-weight: 500;
+            border-left: 4px solid var(--harvard-primary);
+        }
+        .btn-ir-site {
+            display: inline-block;
+            background: white;
+            color: var(--harvard-primary);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .btn-ir-site:hover {
+            background: var(--harvard-primary);
+            color: white;
+            border-color: white;
+        }
+
+        /* rodapé */
+        .main-footer {
+            background: var(--harvard-primary);
+            color: white;
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            border-radius: 1.8rem 1.8rem 0 0;
+        }
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .footer-copy {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            background: rgba(255,255,255,0.18);
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .footer-link:hover {
+            background: white;
+            color: var(--harvard-primary);
+        }
+
+        /* responsividade e ajustes finos */
+        @media (max-width: 780px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .profile-card {
+                align-self: flex-start;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+        @media (max-width: 560px) {
+            .container {
+                padding: 0 1rem;
+            }
+            .profile-card {
+                padding: 0.5rem 0.8rem;
+            }
+            .profile-img {
+                width: 52px;
+                height: 52px;
+            }
+            .title-area h1 {
+                font-size: 1.4rem;
+            }
+        }
+        /* foco acessível */
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid var(--harvard-primary);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <div class="container header-content">
+        <div class="title-area">
+            <h1> Framework Harvard · Negociação prática</h1>
+            <div class="estudo-badge">Método colaborativo para líderes</div>
+            <p>Baseado em interesses, não em posições — aplicável na sua rotina de gestão</p>
+        </div>
+        <div class="profile-card">
+            <!-- imagem local + fallback SVG embutido (sem depender de placehold.co) -->
+            <img src="Gestão_SG.png" alt="Silvanio Gois" class="profile-img" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'64\' height=\'64\' viewBox=\'0 0 64 64\'%3E%3Ccircle cx=\'32\' cy=\'32\' r=\'32\' fill=\'%2337628d\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'white\' font-size=\'26\' font-family=\'monospace\'%3ESG%3C/text%3E%3C/svg%3E';">
+            <div class="profile-info">
+                <span class="name">Silvanio Gois</span>
+                <a href="https://wa.me/5513988301094? target="_blank" class="whatsapp-link" rel="noopener noreferrer">
+                    <i class="fab fa-whatsapp"></i> Contato
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+    <!-- introdução pessoal -->
+    <section>
+        <div class="quote">
+            <i class="fas fa-users" style="color: rgb(39,98,141); margin-right: 8px;"></i> 
+            <strong>Sabe quando a gente sente que negociação é só um jogo de empurra?.</strong> Pois é, descobri que o método Harvard muda isso. Líderes negociam o tempo todo – prazos, alinhamentos, até mesmo o clima da equipe. Aqui compartilho o que funciona no dia a dia, sem enrolação.
+        </div>
+    </section>
+
+    <!-- 4 pilares -->
+    <section>
+        <h2 class="section-title"><i class="fas fa-gem" style="margin-right: 12px;"></i> 4 pilares da negociação por princípios</h2>
+        <div class="cards-grid">
+            <article class="pilar-card">
+                <div class="card-icon"><i class="fas fa-user-friends"></i></div>
+                <h3>1. Separe pessoas do problema</h3>
+                <p>Seja duro com o mérito, suave com as pessoas. Atenda emoções, escute ativamente e evite ataques pessoais.</p>
+                <div class="dica-lider"><i class="fas fa-lightbulb"></i> Na prática: ao criticar um atraso, foque no impacto no projeto, não na pessoa. “O que podemos ajustar no fluxo?”</div>
+            </article>
+            <article class="pilar-card">
+                <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>2. Foco em interesses, não posições</h3>
+                <p>Pergunte “por quê?” e “o que realmente importa?”. Interesses escondem necessidades reais (reconhecimento, segurança, tempo).</p>
+                <div class="dica-lider"><i class="fas fa-lightbulb"></i> Exemplo gestor: Em vez de “quero redução de 15%”, descubra o interesse do outro: previsibilidade de custos ou qualidade.</div>
+            </article>
+            <article class="pilar-card">
+                <div class="card-icon"><i class="fas fa-brain"></i></div>
+                <h3>3. Crie opções de ganho mútuo</h3>
+                <p>Faça brainstorming sem julgamento. Expanda o bolo antes de dividi-lo. Combine diferentes tipos de recursos.</p>
+                <div class="dica-lider"><i class="fas fa-lightbulb"></i> Com equipe: “Como podemos fazer o projeto andar mais rápido sem sacrificar a qualidade? Liste 5 ideias criativas.”</div>
+            </article>
+            <article class="pilar-card">
+                <div class="card-icon"><i class="fas fa-balance-scale"></i></div>
+                <h3>4. Use critérios objetivos</h3>
+                <p>Baseie-se em dados, benchmarks, valores de mercado ou especialistas. Isso reduz subjetividade e conflitos.</p>
+                <div class="dica-lider"><i class="fas fa-lightbulb"></i> Em reajuste salarial: “com base na pesquisa de mercado X e índice Y, propomos esse percentual”.</div>
+            </article>
+        </div>
+    </section>
+
+    <!-- BATNA + checklist -->
+    <div class="flex-2col">
+        <article class="flex-card">
+            <h3><i class="fas fa-chalkboard-user" style="color: rgb(39,98,141); margin-right: 8px;"></i> BATNA – seu melhor plano B</h3>
+            <p>No método Harvard, a <strong>Melhor Alternativa para um Acordo Negociado</strong> é sua força silenciosa. Antes de qualquer negociação, defina: <em>“O que farei se não houver acordo?”</em>. Para gestores: conhecer sua alternativa (contratar outro fornecedor, internalizar tarefa, redistribuir prazos) evita acordos ruins.</p> 
+            <div class="dica-lider"><i class="fas fa-rocket"></i> Pergunte-se: "Qual meu BATNA hoje? E o BATNA da outra parte?"</div>
+        </article>
+        <article class="flex-card">
+            <h3><i class="fas fa-clipboard-list"></i> Checklist do negociador (dia a dia)</h3>
+            <div class="checklist-item"><i class="fas fa-check-circle"></i> <span>Prepare-se: interesses próprios e do outro.</span></div>
+            <div class="checklist-item"><i class="fas fa-check-circle"></i> <span>Construa rapport e escuta ativa.</span></div>
+            <div class="checklist-item"><i class="fas fa-check-circle"></i> <span>Use perguntas abertas: "O que é essencial para você?"</span></div>
+            <div class="checklist-item"><i class="fas fa-check-circle"></i> <span>Busque critérios externos (dados, política interna, lei).</span></div>
+            <div class="checklist-item"><i class="fas fa-check-circle"></i> <span>Pratique a comunicação não-violenta.</span></div>
+            <div class="checklist-item"><i class="fas fa-check-circle"></i> <span>Defina opções antes de decidir.</span></div>
+        </article>
+    </div>
+
+    <!-- cenário real -->
+    <section>
+        <h2 class="section-title"><i class="fas fa-comments"></i> Caso real · home office que virou acordo</h2>
+        <div class="exemplo-dialogo">
+            <i class="fas fa-quote-left" style="color: var(--harvard-primary); margin-right: 6px;"></i> <strong>Contexto:</strong> Renata (líder) e Carlos (colaborador) – desacordo sobre home office. Carlos queria 4 dias remoto; empresa permite 2.<br><br>
+            <strong>🔹 Posições iniciais:</strong> “Quero 4 dias” / “Só pode 2”.<br>
+            <strong>🔹 Interesses descobertos:</strong> Carlos precisa reduzir tempo de deslocamento e ter foco para estudo; Renata precisa de colaboração presencial em reuniões estratégicas.<br>
+            <strong>🔹 Opção de ganho mútuo:</strong> Carlos faz 2 dias presenciais fixos (quartas e quintas) para alinhamentos, e dois dias remotos, mas com 1 hora extra de foco em demandas estratégicas.<br>
+            <strong>✅ Resultado:</strong> ambos ganham, critério objetivo foi produtividade + qualidade de vida. Decisão documentada por 3 meses.
+        </div>
+        <p style="margin-top: 12px; font-size: 0.9rem;">💡 <strong>Reflexão para gestores:</strong> quando buscamos interesses, criamos compromissos sustentáveis. Ninguém perde a face, o problema vira desafio conjunto.</p>
+    </section>
+
+    <!-- framework rápido -->
+    <section>
+        <h2 class="section-title"><i class="fas fa-layer-group"></i> Framework rápido: 5 passos (copiar e usar)</h2>
+        <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(210px,1fr));">
+            <div class="pilar-card" style="padding: 1.2rem;"><i class="fas fa-search" style="font-size: 1.8rem; color: var(--harvard-primary);"></i><h3 style="font-size: 1.1rem;">1. Diagnóstico</h3><p>Mapeie interesses, BATNA e relacionamento.</p></div>
+            <div class="pilar-card" style="padding: 1.2rem;"><i class="fas fa-comments" style="font-size: 1.8rem; color: var(--harvard-primary);"></i><h3 style="font-size: 1.1rem;">2. Escuta ativa</h3><p>Valide emoções e faça paráfrase.</p></div>
+            <div class="pilar-card" style="padding: 1.2rem;"><i class="fas fa-lightbulb" style="font-size: 1.8rem; color: var(--harvard-primary);"></i><h3 style="font-size: 1.1rem;">3. Geração de opções</h3><p>“E se tentássemos...?” Inove sem censura.</p></div>
+            <div class="pilar-card" style="padding: 1.2rem;"><i class="fas fa-ruler-combined" style="font-size: 1.8rem; color: var(--harvard-primary);"></i><h3 style="font-size: 1.1rem;">4. Critérios justos</h3><p>Use métricas, precedentes, eficiência.</p></div>
+            <div class="pilar-card" style="padding: 1.2rem;"><i class="fas fa-handshake" style="font-size: 1.8rem; color: var(--harvard-primary);"></i><h3 style="font-size: 1.1rem;">5. Acordo claro</h3><p>Registre compromissos e plano B.</p></div>
+        </div>
+    </section>
+
+    <!-- armadilhas comuns -->
+    <section>
+        <div style="background: white; border-radius: 1.5rem; padding: 1.5rem; box-shadow: var(--shadow-sm);">
+            <h3 style="display: flex; gap: 8px; align-items: center;"><i class="fas fa-exclamation-triangle" style="color: #e67e22;"></i> Armadilhas frequentes (e como evitar)</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;">
+                <div style="flex:1; min-width: 200px;"><strong>❌ Reagir emocionalmente</strong><br>✅ Pausa de 10 segundos, respirar e separar pessoas do problema.</div>
+                <div style="flex:1; min-width: 200px;"><strong>❌ Apego à posição inicial</strong><br>✅ Pergunte “qual interesse isso atende?”.</div>
+                <div style="flex:1; min-width: 200px;"><strong>❌ Negligenciar o BATNA do outro</strong><br>✅ Pesquise alternativas antes da mesa.</div>
+            </div>
+        </div>
+    </section>
+
+    <button class="back-to-top" id="backToTopBtn" aria-label="Voltar ao topo" role="button"><i class="fas fa-arrow-up"></i></button>
+</main>
+
+<footer class="main-footer">
+    <div class="container footer-content">
+        <div class="footer-copy">
+            © 2026 Silvanio Gois · Feito para líderes que negociam todos os dias
+        </div>
+        <a href="https://www.silvaniogois.com.br/" target="_blank" rel="noopener noreferrer" class="footer-link">
+            <i class="fas fa-globe"></i> ir ao Site
+        </a>
+    </div>
+    <div class="container" style="font-size: 0.7rem; text-align: center; margin-top: 0.8rem; opacity: 0.7;">
+        Da estratégia à operação, conectando, processos, pessoas e resultados.
+    </div>
+</footer>
+
+<script>
+    (function() {
+        const backBtn = document.getElementById('backToTopBtn');
+        if (!backBtn) return;
+
+        function toggleBackToTop() {
+            if (window.scrollY > 350) {
+                backBtn.classList.add('show');
+            } else {
+                backBtn.classList.remove('show');
+            }
+        }
+
+        window.addEventListener('scroll', toggleBackToTop);
+        window.addEventListener('resize', toggleBackToTop);
+        toggleBackToTop();
+
+        // scroll suave apenas se o sistema não tiver "reduce motion" ativo
+        backBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                window.scrollTo(0, 0);
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    })();
+</script>
+</body>
+</html>
